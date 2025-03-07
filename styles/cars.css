@@ -1,0 +1,66 @@
+.div-car{
+  margin-top: 100px;
+  background-color: white;
+  width: 95%;
+  margin-left: 30px;
+  border-radius: 20px;
+  height: 120%;
+  padding-bottom: 20px;
+  border: solid;
+}
+.car-container{
+  border-radius: 20px;
+  background-color: bisque;
+  border: solid;
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  transition: .3s ease-in-out transform;
+}
+img{
+  height: 100px;
+  border: none;
+  border-radius: 20px;
+  margin-left: 70px;
+  margin-top: 30px;
+  
+}
+.car-container:hover{
+transform: scale(1.1)
+}
+  
+
+div.div{
+  background-color: white;
+}
+p{
+  font-size: 26px;
+  margin-left: 70px;
+  font-weight: 700;
+
+}
+button{
+  background-color: orange;
+  margin-left: 90px;
+  width: 100px;
+  height: 50px;
+  border-radius: 50px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+
+}
+button:hover{
+  cursor: pointer;
+  background-color: lightgreen;
+}
+.toyota{
+  height: 300px;
+  width: 500px;
+  border: none;
+  margin-left: 500px;
+}
+.div-cars{
+  background-color: white;
+  padding: 20px 20px 20px 20px;
+  border-radius: 20px;
+}

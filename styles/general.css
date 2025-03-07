@@ -1,0 +1,229 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('../images/cars3.jpg');
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+}
+.sidebar{
+  background-color: white;
+  width: 80%;
+  margin-left: 130px;
+  border-radius: 20px;
+  height: 100%;
+}
+.heading{
+  font-family: "Rubik Wet Paint", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  font-weight: 700;
+  color:rgba(255, 250, 250, 0.264);
+  margin-left: 30px;
+}
+.cart-icon{
+  height: 70px;
+  width: 110px;
+  position: relative;
+  font-size: 24px; /* Adjust size for the icon */
+  cursor: pointer;
+  margin-right: -40px;
+  
+  }
+.cart-count{
+    position: absolute;
+    top: 58px; /* Adjust to place it above the icon */
+    right: 253px ; 
+    background-color: orangered;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    min-width: 18px;
+    text-align: center;
+  }
+  .button-logout{
+    margin-right: 50px;
+    margin-top: -3px;
+  }
+p{
+color: rgb(98, 94, 94);
+}
+
+.main-home{
+margin-left: 40px;
+margin-top: 50px;
+}
+.main-cars{
+margin-left: 20px;
+margin-top: 50px;
+color: white;
+}
+.about{
+margin-left: 20px;
+margin-top: 50px;
+color: white;
+}
+.image1{
+height: 650px;
+border: none;
+border-radius: 20px;
+width: 90%;
+position: relative;
+margin-left: 100px;
+
+
+ 
+transform: translateX(-100%); /* Start position */
+opacity: 0; /* Start invisible */
+animation: slideIn 11s forwards; /* Animation properties */
+
+}
+@keyframes slideIn {
+to {
+transform: translateX(0); /* End position */
+opacity: 1; /* End visible */
+}
+}
+
+.quote{
+margin-top: 10px;
+font-size: 70px;
+font-weight: 700;
+margin-left: 150px;
+color: rgb(142, 5, 5);
+font-family: "Rowdies", serif;
+font-weight: 700;
+font-style: normal;
+
+}
+.quote2{
+margin-top: 50px;
+font-size: 40px;
+font-weight: 500;
+margin-left: 450px;
+color: rgb(118, 0, 0);
+}
+.quote3{
+margin-top: 20px;
+font-family: "Rubik Wet Paint", serif;
+font-weight: 400;
+font-style: normal;
+font-size: 60px;
+font-weight: 700;
+color: rgb(185, 87, 13);
+margin-left: 450px;
+}
+.main{
+display: flex;
+
+}
+@keyframes scaleup
+.sidebar{
+background-color: white;
+height: 70vh;
+width: 80%;
+margin-left: 100px;
+margin-top: 70px;
+border-radius: 20px;
+}
+.home{
+background-color: red;
+margin-left: 20px;
+width: 1000px;
+}
+.logo{
+height: 100px;
+width: 200px;
+border-radius: 20px;
+margin-left: 200px;
+}
+.arrow{
+height: 20px;
+margin-left: 10px;
+margin-top: 50px;
+}
+.arrow1{
+height: 100px;
+margin-left: 10px;
+margin-right: 20px;
+margin-top: 50px;
+transition: .4s ease-in-out transform;
+}
+.arrow1:hover{
+transform: scale(1.1)
+}
+.arrow2{
+height: 20px;
+margin-right: 10px;
+margin-left: -50px;
+}
+.footer{
+background-color: black;
+color: white;
+height: 100%;
+margin-top: 40px;
+width: 100%;
+}
+.help{
+
+}
+.container {
+text-align: center;
+}
+input {
+padding: 10px;
+font-size: 16px;
+border: 1px solid #ccc;
+border-radius: 9px;
+outline: none;
+margin-bottom: 10px;
+margin-left: 15px;
+margin-top: 20px;
+
+}
+button {
+margin-top: 22px;
+margin-left: -50px;
+padding: 10px 10px;
+
+font-size: 16px;
+border: none;
+border-radius: 9px;
+height: 37px;
+background-color: rgb(108, 92, 3);
+color: white;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+button:hover {
+background-color: #45a049;
+}
+.search-button{
+  height: 20px;
+  margin-top: 40px;
+}
+.arrow3{
+height: 20px;
+padding-right: 4px;
+padding-left: 5px;
+margin-left: -20px;
+
+}
+.register{
+margin-left: 20px;
+margin-top: 28px;
+}
+.output {
+margin-top: 20px;
+font-size: 18px;
+color: #333;
+}
+footer{
+background-color: gray;
+color: white;
+padding-left: 600px;
+}

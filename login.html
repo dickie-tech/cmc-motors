@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMC MOTORS CAR DEALERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rowdies:wght@300;400;700&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, rgba(57, 31, 1, 0.87) 0%, rgba(112, 141, 152, 0.404) 100%);
+            font-family: 'Roboto', sans-serif;
+        }
+        .section-one {
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            padding: 20px;
+        }
+        .agri-text {
+            color: rgb(255, 158, 47);
+            font-size: 70px;
+            font-family: "Rowdies", serif;
+            font-weight: 700;
+            margin-left: 0px;
+            margin-top: 5px;
+        }
+        .agri-lives {
+            color: white;
+            font-size: 30px;
+            margin-left: 50px;
+        }
+        .agri img {
+            margin-top: 20px;
+            width: 60vw;
+            height: 80vh;
+            border-radius: 20px;
+            flex: 1;
+            margin-left: 30px;
+        }
+        .login {
+            margin-top: -20px;
+            margin-bottom: 40px;
+            margin-left: 40px;
+            font-size: 36px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .login-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 20px;
+            width: 30px;
+            flex: 1;
+            background-color: rgb(255, 252, 252);
+            height: 70vh;
+            border: solid;
+            border-radius: 20px;
+            margin-top: 140px;
+        }
+        .username, .password {
+            margin-bottom: 10px;
+        }
+        label {
+            font-size: 18px;
+            color: black;
+            margin-left: 30px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            border: solid;
+            outline: none;
+            margin-left: 20px;
+        }
+        .login-button {
+            height: 60px;
+            width: 160px;
+            padding: 10px;
+            background-color: #f39c12;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-left: 110px;
+        }
+        .login-button:hover {
+            background-color: lightseagreen;
+        }
+        .or {
+            font-family: 'Times New Roman', Times, serif;
+            color: black;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .sign-up {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 16px;
+            color: black;
+        }
+        .sign-up a {
+            color: rgb(255, 153, 0);
+            text-decoration: none;
+        }
+        #error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase configuration (replace with your Firebase project credentials)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWAEi2gkVi4Ob__rHPRGwop4uNkk0GsXY",
+            authDomain: "cmc-motors-e9fee.firebaseapp.com",
+            projectId: "cmc-motors-e9fee",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "191822096484",
+            appId: "1:191822096484:web:458f32f77ffdcea9591771"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth(); // Declare auth after initializing Firebase
+
+        // Toggle Password Visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('login-password');
+            const toggleButton = document.getElementById('togglePassword');
+    
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = 'Show';
+            }
+        }
+
+        // Login User with Firebase Authentication
+        async function loginUser(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            const email = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            // Validate if fields are not empty
+            if (!email || !password) {
+                const errorMessageElement = document.getElementById("error-message");
+                if (errorMessageElement) {
+                    errorMessageElement.textContent = "Both fields are required.";
+                    errorMessageElement.style.color = "red";
+                }
+                return;  // Stop further execution
+            }
+
+            try {
+                // Firebase login
+                await auth.signInWithEmailAndPassword(email, password);
+                alert("Login successful!");
+
+                // Redirect to home page after login
+                setTimeout(function() {
+                    window.location.href = 'home-page.html';  // Redirect after 1 second
+                }, 1000);
+            } catch (error) {
+                // Handle login errors
+                const errorMessageElement = document.getElementById("error-message");
+                if (errorMessageElement) {
+                    errorMessageElement.textContent = error.message || "Login failed. Please try again.";
+                    errorMessageElement.style.color = "red";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <section class="section-one">
+        <div class="agri-text">CMC MOTORS CAR DEALERS
+            <div class="agri">
+                <img src="images/drive.jpg" alt="Car Image">
+            </div>
+        </div>
+
+        <div class="login-page">
+            <div class="login"><u>Login</u></div>
+            <form onsubmit="loginUser(event)">
+                <label for="login-username" class="username">Email:</label>
+                <input type="email" id="login-username" required><br>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required><br>
+                <button class="login-button" type="submit">Login</button>
+            </form>
+
+            <!-- Error message -->
+            <div id="error-message"></div>
+
+            <div class="or">Or</div>
+
+            <div class="sign-up">If you don't have an account <a href="sign-up.html">sign-up >></a></div>
+        </div>
+    </section>
+</body>
+</html>

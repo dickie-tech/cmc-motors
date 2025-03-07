@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Car Dealer</title>
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/cars.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rowdies:wght@300;400;700&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rowdies:wght@300;400;700&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+  <div style="padding-left:20px;color: rgb(241, 88, 88);background-color: rgb(73, 72, 71)">Office Hours: 8am-5pm Daily</div>
+  <div style="display: flex;flex-direction: row;background-color: rgba(0, 0, 0, 0.901);  ">
+    
+    <div class="main-home"><a href="home-page.html">HOME</a></div>
+    <div class="main-cars">CARS</div>
+    <a href="cart.html">
+      <img class="arrow" src="images/arrow.png">
+    </a>
+    <div class="about">ABOUT US</div>
+    <div class="heading">CMC MOTORS 
+      <div class="heading">CAR DEALERS..</div>
+    </div>
+    <div class="container">
+      <input type="text" id="searchInput" placeholder="Search car" oninput="filterCars()">
+  
+  </div>
+  
+    
+    <div>
+      <div style="margin-left: 150px;margin-top: -20px;color: white;"><img class="arrow2" src="images/gmail.png">info@cmcmotors.co.ke</div>
+      <div style="margin-left: 150px;margin-top: -5px;color: white;"><img class="arrow2" src="images/phone.png">+254712311348, +25478909208967</div>
+    </div>
+    <a href="cart.html">
+      <div><img class="cart-icon"src="images/cart-icon.png"><span class="cart-count">0</span></div>
+    </a>
+    <div class="register">
+      <a href="login.html">
+        <button class="button-logout">Logout</button>
+      </a>
+    </div>
+    
+
+  </div>
+    <header>
+        
+    </header>
+
+    <div>
+      <img class="image1"src="images/cars2.jpg">
+      <div class="quote">CONNECTING DRIVERS TO DREAMS</div>
+      <div class="quote3">SHOP CARS BY BRAND</div>
+        <div class="quote2">Shop Cars for Sale in Kenya by Brands</div>
+    </div>
+    <div class="main">
+      <div class="sidebar">
+        <a href="home-page.html"onclick="filterCars('ALFA-ROMEO')">
+          <img class="arrow1" src="images/alfa-romeo-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/audi-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/bmw-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/chevrolet-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/dodge-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/ferrari-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/ford-mustang-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/hyundai-logo.png">
+        </a><a href="cart.html">
+          <img class="arrow1" src="images/jaguar-logo.png">
+        </a><a href="cart.html">
+          <img class="arrow1" src="images/jeep-logo.png">
+        </a><a href="cart.html">
+          <img class="arrow1" src="images/lamborghini-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/lexus-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/peugeot-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/mazda-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/mercedes-benz-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/nissan-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/subaru-logo.png">
+        </a><a href="cart.html">
+          <img class="arrow1" src="images/suzuki-logo.png">
+        </a>
+        <a href="toyota.html">
+          <img class="arrow1" src="images/toyota-logo.png">
+        </a><a href="cart.html">
+          <img class="arrow1" src="images/volkswagen-logo.png">
+        </a>
+        <a href="cart.html">
+          <img class="arrow1" src="images/tesla-logo.png">
+        </a>
+      </div>
+    
+    </div>
+    <div class="js-car div-car" id="carContainer" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr"></div>
+    
+    <div class="footer"style="display: flex;flex-direction:column;">
+       
+      <div style="display: flex;flex-direction: row; row-gap: 40px;">
+        <div class="help1"style="margin-left: 70px;margin-top: 0px;">CARS
+          <p>ALL STOCK</p>
+          <p>IN STOCK</p>
+          <p>SHIPPING</p>
+          <p>NEW ARRIVALS</p>
+        </div>
+        <div class="help2"style="margin-left: 150px;MARGIN-TOP: 30PX;"><b class="">TRADE IN</b>
+        <p class="">FINANCING</p>
+        <p class="">BLOG</p>
+      </div>
+        <div class="help2"style="margin-left: 130px;margin-top: 30px;"><b>TOP BRANDS</b>
+          <p>VOLKSWAGEN, TOYOTA, MERCEDEZ BENZ, AUDI, MAZDA, LEXUS, SUBARU, HONDA, BMW</p> </div>
+        <div class="help3"style="margin-left: 150px;">CONTACT US
+          <div style="margin-left: -29px;margin-top: 10px;color: white"><img class="arrow2" src="images/time.png">Office Hours: 8am-5pm Daily</div>
+          <div style="margin-left: 0px;margin-top: 30px;color: white;"><img class="arrow2" src="images/phone.png">+254712311348, +25478909208967</div>
+          <div style="margin-left: 0px;margin-top: 30px;color: white;"><img class="arrow2" src="images/gmail.png">info@cmcmotors.co.ke</div> 
+          
+        </div>
+        
+       
+      </div>
+  
+    </div>
+    <footer>© 2025 CMCMOTORSCARDEALERS.All rights reserved.</footer>
+    <script src="scripts/cars.js">
+      function showPlaceholder() {
+          const input = document.getElementById('searchInput');
+          const output = document.getElementById('output');
+          output.textContent = `"${input}"`;
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const carContainer = document.getElementById("carContainer");
+      
+        // Sample car data (Replace with actual data from Firebase)
+        const cars = [
+          { brand: "Toyota", model: "Corolla", image: "images/toyota.png" },
+          { brand: "BMW", model: "X5", image: "images/bmw.png" },
+          { brand: "Mercedes", model: "C-Class", image: "images/mercedes.png" },
+          { brand: "Subaru", model: "Impreza", image: "images/subaru.png" },
+        ];
+      
+        function displayCars(filteredCars) {
+          carContainer.innerHTML = ""; // Clear previous results
+          filteredCars.forEach(car => {
+            const carDiv = document.createElement("div");
+            carDiv.classList.add("car-item");
+            carDiv.innerHTML = `
+              <img src="${car.image}" alt="${car.model}" style="width:100px;">
+              <p>${car.brand} - ${car.model}</p>
+            `;
+            carContainer.appendChild(carDiv);
+          });
+        }
+      
+        function filterCars() {
+          const searchText = searchInput.value.toLowerCase();
+          const filteredCars = cars.filter(car =>
+            car.brand.toLowerCase().includes(searchText) || car.model.toLowerCase().includes(searchText)
+          );
+          displayCars(filteredCars);
+        }
+      
+        displayCars(cars); // Display all cars initially
+      });
+      
+    </script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</body>
+
+</html>

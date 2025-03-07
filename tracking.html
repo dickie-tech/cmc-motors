@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: antiquewhite;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            background: #004d99;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        header img {
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+            margin-left: 250px;
+        }
+
+        .main {
+            padding: 20px;
+        }
+
+        .order-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-item {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .order-item img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .order-details {
+            flex-grow: 1;
+        }
+
+        .order-details p {
+            margin: 5px 0;
+        }
+
+        .progress-bar-container {
+            height: 10px;
+            background: #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #007BFF;
+        }
+
+        .back-to-cart {
+            text-decoration: none;
+            color: white;
+            background: blue;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-to-cart:hover {
+            background: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/cmclogo.jpg" alt="CMC Motors Logo">
+        <h1>Order Tracking</h1>
+    </header>
+    <div class="main">
+        <a href="cart.html" class="back-to-cart">Back to Cart</a>
+        <div class="order-container" id="order-container">
+            <!-- Orders will be rendered dynamically here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to render orders dynamically
+        function renderOrders() {
+            const orderContainer = document.getElementById('order-container');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderSummary = JSON.parse(localStorage.getItem('orderSummary')) || {};
+
+            if (cart.length === 0) {
+                orderContainer.innerHTML = '<p>No orders to display. Please make a purchase first.</p>';
+                return;
+            }
+
+            cart.forEach((car) => {
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-item');
+
+                const progressBarWidth = 50; // Example: progress is 50%
+                
+                orderItem.innerHTML = `
+                    <img src="${car.imageURL}" alt="${car.brand} ${car.model}">
+                    <div class="order-details">
+                        <p><strong>Brand:</strong> ${car.brand}</p>
+                        <p><strong>Model:</strong> ${car.model}</p>
+                        <p><strong>Price:</strong> KES ${car.price.toLocaleString()}</p>
+                        <p><strong>Quantity:</strong> ${car.quantity || 1}</p>
+                        <p><strong>Estimated Delivery Date:</strong> ${orderSummary.deliveryDate || 'N/A'}</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: ${progressBarWidth}%"></div>
+                        </div>
+                        <p>Status: Shipped</p>
+                    </div>
+                `;
+
+                orderContainer.appendChild(orderItem);
+            });
+        }
+
+        // Call the function to render orders on page load
+        renderOrders();
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMC Motors Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #FF7E5F, #FEB47B);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Registration form container */
+        .register-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .register-container label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .register-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .register-container input:focus {
+            border-color: #FF7E5F;
+            box-shadow: 0 0 8px rgba(255, 126, 95, 0.5);
+        }
+
+        .register-container button {
+            width: 100%;
+            padding: 14px;
+            background-color: #FF7E5F;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .register-container button:hover {
+            background-color: #FEB47B;
+        }
+
+        .register-container .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .register-container .success-message {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .register-container .sign-up-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .register-container .sign-up-link a {
+            color: #FF7E5F;
+            text-decoration: none;
+        }
+
+        .register-container .sign-up-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Firebase SDK v9 -->
+    <script type="module">
+        // Import Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWAEi2gkVi4Ob__rHPRGwop4uNkk0GsXY",
+            authDomain: "cmc-motors-e9fee.firebaseapp.com",
+            projectId: "cmc-motors-e9fee",
+            storageBucket: "cmc-motors-e9fee.appspot.com",
+            messagingSenderId: "191822096484",
+            appId: "1:191822096484:web:458f32f77ffdcea9591771"
+        };
+
+        // Initialize Firebase app
+        const app = initializeApp(firebaseConfig);
+
+        // Initialize Firebase Auth
+        const auth = getAuth(app);
+
+        // Register user function
+        async function registerUser(event) {
+            event.preventDefault(); // Prevent the form from submitting traditionally
+
+            // Get form input values
+            const firstName = document.getElementById('register-first-name').value;
+            const lastName = document.getElementById('register-last-name').value;
+            const email = document.getElementById('register-address').value;
+            const password = document.getElementById('register-password').value;
+
+            // Clear error/success messages
+            document.getElementById("error-message").textContent = "";
+            document.getElementById("success-message").textContent = "";
+
+            try {
+                // Attempt to create a new user with Firebase Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+                // User details can now be saved to your backend database if needed
+                const user = userCredential.user;
+                console.log("User registered:", user);
+
+                // Success feedback
+                document.getElementById("success-message").textContent = "Registration successful! Please log in.";
+
+            } catch (error) {
+                console.error("Error during registration:", error.message);
+                document.getElementById("error-message").textContent = "Error: " + error.message;
+            }
+        }
+
+        // Bind the registration function to the form submit event
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', registerUser);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form>
+            <label for="register-first-name">First Name:</label>
+            <input type="text" id="register-first-name" required><br>
+            
+            <label for="register-last-name">Last Name:</label>
+            <input type="text" id="register-last-name" required><br>
+
+            <label for="register-address">Email Address:</label>
+            <input type="email" id="register-address" required><br>
+            
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" required minlength="6"><br>
+
+            <button type="submit">Register</button>
+            
+            <div class="error-message" id="error-message"></div>
+            <div class="success-message" id="success-message"></div>
+        </form>
+
+        <div class="sign-up-link">
+            <p>If you already have an account, <a href="login.html">login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

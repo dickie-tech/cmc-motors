@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #28a745;
+        }
+
+        .summary {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            background: #f4f4f4;
+            text-align: left;
+        }
+
+        .summary p {
+            margin: 10px 0;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-home:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your purchase! Your order has been processed successfully.</p>
+
+        <div class="summary">
+            <h3>Order Summary</h3>
+            <p><strong>Car Price:</strong> KES <span id="car-price">0</span></p>
+            <p><strong>Shipping Fee:</strong> KES <span id="shipping-fee">0</span></p>
+            <p><strong>Tax (30%):</strong> KES <span id="tax">0</span></p>
+            <h4><strong>Total:</strong> KES <span id="total">0</span></h4>
+        </div>
+
+        <a href="cart.html" class="back-home">Back to Home</a>
+    </div>
+
+    <script>
+        // Fetch and display order summary from localStorage
+        function displayOrderSummary() {
+            const orderSummary = JSON.parse(localStorage.getItem("orderSummary"));
+
+            if (orderSummary) {
+                const { carPrice, shippingFee, tax, grandTotal } = orderSummary;
+
+                // Update the summary
+                document.getElementById("car-price").textContent = carPrice.toLocaleString();
+                document.getElementById("shipping-fee").textContent = shippingFee.toLocaleString();
+                document.getElementById("tax").textContent = tax.toLocaleString();
+                document.getElementById("total").textContent = grandTotal.toLocaleString();
+
+                // Optionally clear the orderSummary after displaying
+                localStorage.removeItem("orderSummary");
+            } else {
+                // Fallback if orderSummary is missing
+                alert("No order details found. Returning to home.");
+                window.location.href = "cart.html";
+            }
+        }
+
+        // Display the summary on page load
+        displayOrderSummary();
+    </script>
+</body>
+</html>

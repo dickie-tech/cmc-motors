@@ -1,0 +1,61 @@
+document.querySelectorAll('.js-add-to-cart')
+    .forEach((button)=>{
+      button.addEventListener('click',()=>{
+        const productId = button.dataset.productId;
+
+        addtoCart(productId);
+        updateCart();
+        
+      
+          
+      });
+    });
+    let matchingCar;
+    cars.forEach((car) => {
+    if(car.brand === carBrand){
+      matchingCar = car;
+    };
+    });
+
+    return matchingCar;
+    <script>
+      
+  </script>
+</body>
+<div class="profile-container">
+  <img src="images/profile-icon.png" class="profile-icon" id="profileIcon" alt="Profile">
+  <div class="profile-dropdown" id="profileDropdown">
+    <p id="userName">Guest</p>
+    <p id="userEmail">Not logged in</p>
+    <button id="logoutButton">Logout</button>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const profileIcon = document.getElementById("profileIcon");
+      const profileDropdown = document.getElementById("profileDropdown");
+      const userEmail = document.getElementById("userEmail");
+      const logoutButton = document.getElementById("logoutButton");
+
+      profileIcon.addEventListener("click", () => {
+        profileDropdown.style.display = profileDropdown.style.display === "none" ? "block" : "none";
+      });
+
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          userEmail.textContent = user.email;
+          profileIcon.style.display = "block";
+        } else {
+          profileIcon.style.display = "none";
+        }
+      });
+
+      logoutButton.addEventListener("click", () => {
+        firebase.auth().signOut().then(() => {
+          window.location.href = "login.html";
+        });
+      });
+    });
+  </script>

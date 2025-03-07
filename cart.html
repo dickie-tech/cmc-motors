@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+      body{
+        background-color: antiquewhite;
+      }
+        .cart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px;
+        }
+        header {
+          display: flex;
+          align-items: center;
+          margin: 0;
+          background: #004d99;
+          padding: 10px 20px;
+          color: white;
+      }
+
+      header img {
+          height: 50px;
+          border-radius: 5px;
+      }
+
+      header h1 {
+          font-size: 24px;
+          margin: 0;
+          margin-left: 250px;
+      }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            width: 120%;
+        }
+
+        .cart-item img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .cart-item-details p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .cart-item button {
+            background: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .cart-item button:hover {
+            background: darkgreen;
+        }
+
+        .add-button {
+            background: green;
+            margin-left: 10px;
+        }
+
+        .add-button:hover {
+            background: darkgreen;
+        }
+
+        .total-summary, .shipping-options {
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        .total-summary p, .shipping-options label {
+            margin: 10px 0;
+        }
+
+        .total-summary {
+            margin-left: 20px;
+            margin-right: 30px;
+            width: 30%;
+            height: 60vh;
+        }
+
+        .shipping-options select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .shipping-options {
+            height: 40vh;
+            position: relative;
+            margin-left: 130px;
+        }
+
+        .proceed-button {
+            margin-left: 50px;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .proceed-button:hover {
+            background: darkblue;
+        }
+    </style>
+</head>
+<body>
+      <header>
+        <img src="images/cmclogo.jpg" alt="CMC Motors Logo">
+        <h1>CMC Motors Shopping Cart</h1>
+        <a href="home-page.html" style="color: rgb(189, 168, 65);margin-left: 600px">Home</a>
+    </header>
+    <div style="display: flex; flex-direction: row; width: 100%;">
+        <div style="display: flex; flex-direction: row; border: 1px solid #ccc; width: 100%; border-radius: 10px;background: #f4f4f4;">
+            <div class="cart-container js-cart">
+                <!-- Cart items will be rendered here dynamically -->
+            </div>
+            <div class="shipping-options">
+                <h3>Select Shipping Option</h3>
+                <label for="shipping">Shipping Method:</label>
+                <select id="shipping">
+                    <option value="0" data-days="0">Pick-up (Free)</option>
+                    <option value="500000" data-days="7">Standard Delivery (KES 500,000, 7 days)</option>
+                    <option value="780000" data-days="3">Express Delivery (KES 780,000, 3 days)</option>
+                </select>
+                <p>Estimated Delivery Date: <span id="delivery-date">N/A</span></p>
+            </div>
+        </div>
+        <div class="total-summary">
+            <h3>Total Summary</h3>
+            <p>Car Price: KES <span id="car-price">0</span></p>
+            <p>Shipping Fee: KES <span id="shipping-fee">0</span></p>
+            <p>Tax (30%): KES <span id="tax">0</span></p>
+            <h4>Grand Total: KES <span id="grand-total">0</span></h4>
+            <button class="proceed-button" id="proceed-button">Proceed to Payment</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to render cart items
+        function renderCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartContainer = document.querySelector('.js-cart');
+
+            if (!cartContainer) return;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+                updateTotals();
+                return;
+            }
+
+            let cartHTML = '';
+            cart.forEach((car, index) => {
+                cartHTML += `<div class="cart-item">
+                    <img src="${car.imageURL}" alt="${car.brand} ${car.model}">
+                    <div class="cart-item-details">
+                        <p><strong>Brand:</strong> ${car.brand}</p>
+                        <p><strong>Model:</strong> ${car.model}</p>
+                        <p><strong>Price:</strong> KES ${car.price.toLocaleString()}</p>
+                        <p><strong>Quantity:</strong> ${car.quantity || 1}</p>
+                    </div>
+                    <button class="remove-from-cart" data-id="${index}">Remove</button>
+                    <button class="add-button" data-id="${index}">Add</button>
+                </div>`;
+            });
+            cartContainer.innerHTML = cartHTML;
+
+            // Attach event listeners to buttons
+            document.querySelectorAll(".remove-from-cart").forEach((button) => {
+                button.addEventListener("click", (e) => {
+                    const carId = e.target.getAttribute("data-id");
+                    removeFromCart(carId);
+                });
+            });
+
+            document.querySelectorAll(".add-button").forEach((button) => {
+                button.addEventListener("click", (e) => {
+                    const carId = e.target.getAttribute("data-id");
+                    addToCart(carId);
+                });
+            });
+
+            updateTotals();
+        }
+
+        // Function to remove a car from the cart
+        function removeFromCart(carId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(carId, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Item removed from cart!');
+            renderCartItems();
+        }
+
+        // Function to add a car quantity in the cart
+        function addToCart(carId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[carId]) {
+                cart[carId].quantity = (cart[carId].quantity || 1) + 1;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCartItems();
+        }
+
+        // Function to calculate totals
+        function updateTotals() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const shippingSelect = document.getElementById("shipping");
+            const carPriceElement = document.getElementById("car-price");
+            const shippingFeeElement = document.getElementById("shipping-fee");
+            const taxElement = document.getElementById("tax");
+            const grandTotalElement = document.getElementById("grand-total");
+            const deliveryDateElement = document.getElementById("delivery-date");
+
+            // Calculate car price total
+            const carPrice = cart.reduce((sum, car) => sum + (parseFloat(car.price) * (car.quantity || 1)), 0);
+
+            // Get selected shipping fee and delivery days
+            const shippingOption = shippingSelect.options[shippingSelect.selectedIndex];
+            const shippingFee = parseFloat(shippingOption.value);
+            const shippingDays = parseInt(shippingOption.getAttribute("data-days"), 10);
+
+            // Calculate tax (30% of car price)
+            const tax = carPrice * 0.3;
+
+            // Calculate grand total
+            const grandTotal = carPrice + shippingFee + tax;
+
+            // Calculate and format the delivery date
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + shippingDays);
+            const formattedDate = shippingDays === 0 ? "N/A" : currentDate.toDateString();
+
+            // Update UI
+            carPriceElement.textContent = carPrice.toLocaleString();
+            shippingFeeElement.textContent = shippingFee.toLocaleString();
+            taxElement.textContent = tax.toLocaleString();
+            grandTotalElement.textContent = grandTotal.toLocaleString();
+            deliveryDateElement.textContent = formattedDate;
+        }
+
+        // Handle "Proceed to Payment" button click
+        document.getElementById("proceed-button").addEventListener("click", () => {
+            const orderSummary = {
+                carPrice: parseFloat(document.getElementById('car-price').textContent.replace(/,/g, '')),
+                shippingFee: parseFloat(document.getElementById('shipping-fee').textContent.replace(/,/g, '')),
+                tax: parseFloat(document.getElementById('tax').textContent.replace(/,/g, '')),
+                grandTotal: parseFloat(document.getElementById('grand-total').textContent.replace(/,/g, ''))
+            };
+
+            // Save the summary to localStorage
+            localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+
+            // Ensure the payment page exists before navigating
+            fetch('payment-dashboard.html')
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = 'payment-dashboard.html';
+                    } else {
+                        alert('Payment page not found. Please ensure "payment.html" exists in the correct location.');
+                    }
+                })
+                .catch(() => alert('An error occurred while navigating to the payment page.'));
+        });
+
+        // Update totals when shipping option changes
+        document.getElementById("shipping").addEventListener("change", updateTotals);
+
+        // Call renderCartItems on page load
+        renderCartItems();
+        // Inside your cart page
+      const orderSummary = {
+        carPrice: parseFloat(document.getElementById('car-price').textContent.replace(/,/g, '')),
+        shippingFee: parseFloat(document.getElementById('shipping-fee').textContent.replace(/,/g, '')),
+        tax: parseFloat(document.getElementById('tax').textContent.replace(/,/g, '')),
+        grandTotal: parseFloat(document.getElementById('grand-total').textContent.replace(/,/g, ''))
+      };
+      localStorage.setItem('orderSummary', JSON.stringify(orderSummary));
+
+    </script>
+</body>
+</html>
