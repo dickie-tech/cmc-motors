@@ -1,4 +1,4 @@
-# Node modules (should never be committed)
+
 node_modules/
 npm-debug.log*
 yarn-debug.log*
