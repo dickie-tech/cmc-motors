@@ -48,7 +48,7 @@ coverage/
 # Git merge conflict files
 *.orig
 
-# Miscellaneous
+
 *.bak
 *.swp
 *.swo
